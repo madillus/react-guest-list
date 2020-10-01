@@ -16,7 +16,11 @@ function Guest({ guest, toggleComplete, removeGuest }) {
       <FormControlLabel
         checked={guest.completed}
         labelPlacement="start"
-        label={<Typography>To attend please check the box.</Typography>}
+        label={
+          <Typography style={{ fontSize: 16 }}>
+            To confirm attendence please check the box.
+          </Typography>
+        }
         control={<Checkbox value="completed" color="primary" />}
         onClick={handleCheckboxClick}
       />

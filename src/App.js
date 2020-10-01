@@ -4,10 +4,30 @@ import './App.css';
 import GuestForm from './components/GuestForm';
 import GuestList from './components/GuestList';
 
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+import Button from '@material-ui/core/Button';
+
 function App() {
   const [guestList, setGuestList] = useState([]);
   const [loading, setLoading] = useState(false);
   const baseUrl = 'https://madillusguest.herokuapp.com/';
+
+  const [topLevelDark, setTopLevelDark] = React.useState(false);
+
+  const darkTheme = createMuiTheme({
+    palette: {
+      type: 'dark',
+    },
+  });
+
+  const lightTheme = createMuiTheme({
+    palette: {
+      type: 'light',
+    },
+  });
 
   async function fetchGuestList() {
     const response = await fetch(`${baseUrl}/`);
@@ -69,6 +89,23 @@ function App() {
         removeGuest={removeGuest}
         toggleComplete={toggleComplete}
       />
+      <MuiThemeProvider theme={topLevelDark ? darkTheme : lightTheme}>
+        <CssBaseline />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            setTopLevelDark(!topLevelDark);
+          }}
+        >
+          Dark/light mode
+        </Button>
+        <div>
+          <MuiThemeProvider
+            theme={topLevelDark ? lightTheme : darkTheme}
+          ></MuiThemeProvider>
+        </div>
+      </MuiThemeProvider>
     </div>
   );
 }
