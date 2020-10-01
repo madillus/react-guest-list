@@ -19,15 +19,21 @@ function App() {
       fetchGuestList();
     }
   }, [loading]);
+  async function removeGuest(id) {
+    setGuestList(guestList.filter((guest) => guest.id !== id));
+    setLoading(true);
+    await fetch(`${baseUrl}/${id}`, { method: 'DELETE' });
+    setLoading(false);
+  }
 
-  async function sendGuest(first, last) {
+  async function sendGuest(firstName, lastName) {
     setLoading(true);
     await fetch(`${baseUrl}/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        firstName: first,
-        lastName: last,
+        firstName: firstName,
+        lastName: lastName,
       }),
     });
     setLoading(false);
@@ -50,9 +56,6 @@ function App() {
         return guest;
       }),
     );
-  }
-  function removeGuest(id) {
-    setGuestList(guestList.filter((guest) => guest.id !== id));
   }
 
   return (
