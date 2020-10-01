@@ -16,10 +16,10 @@ function Guest({ guest, toggleComplete, removeGuest }) {
       <Typography
         variant="body1"
         style={{
-          textDecoration: guest.completed ? 'line-through' : null,
+          textDecoration: guest.completed ? 'underline' : null,
         }}
       >
-        {guest.firstName}
+        {guest.firstName} {guest.lastName}
       </Typography>
       <IconButton onClick={handleRemoveClick}>
         <CloseIcon />
